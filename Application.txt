@@ -1,0 +1,61 @@
+1) I have used SpringBoot to create a REST API.It has two end points.one is to create Accounts and the other is to transfer money 
+   from one account to another account.
+2) I have kept business validations of Account should not overdrawn and to handle Simultaneous requests.I will throw 
+   a Runtime Exception if the transfer amount is greater than balance.I have handled simultaneous requests with lastupdate.
+   If i get a request which is having the latest data in db then it allows that request otherwise it will throw an Invalid request
+
+3) I have used hsql file based database and the properties are mentioned in application.properties.
+4) I have used postman to test the two end points.
+5) start the Application with the Application.java as Run as Java Application.once u start the application is available 
+   on default port 8080.
+6) To verify the data in hsql db , we can open the hsql jar pointing to the file.  
+ 
+
+
+Create Account:
+
+url :http://localhost:8080/Account/
+
+Interface :
+
+{
+    "customer": {
+        "name": "suresh",
+        "mobileNumber": "7093704574",
+        "email": "sureshnaidu0223@gmail.com",
+        "addresses": [
+            {
+                "postalCode": "1185PA",
+                "houseNo": "308",
+                "city": "Amstelveen",
+                "country": "NetherLands"
+            }
+        ],
+        "accounts": [
+            {
+                "accountName": "Suresh Naidu",
+                "accountType": "Savings",
+                "accountNumber": "NL42INGB12345678",
+                "balance": "10"
+            }
+        ]
+    }
+}
+
+Transfer Money :
+
+url : http://localhost:8080/Account/transfer
+
+Interface :
+
+{
+   "fromCustomerId": "100",
+   "fromAccountNumber": "NL42INGB12345678",
+   "toCustomerId":"101",
+   "toAccountNumber":"NL42INGB12345678",
+   "amount": "9",
+   "fromAccountLastUpdateDate":"2017-10-08 11:21:08.909000"
+}
+
+Once the Accounts are created in step1 , we can take the fromAccountLastUpdateDate from the database file (C://rad//onePAM/testdb.txt)
+
